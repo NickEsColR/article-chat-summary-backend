@@ -1,3 +1,5 @@
+const { url2text } = require("../helpers/url2text")
+
 //TODO: getArticles
 const getArticles = async (req, res) => {
     res.json({
@@ -7,8 +9,11 @@ const getArticles = async (req, res) => {
 
 //TODO: addArticle
 const addArticle = async (req, res) => {
+    const {url} = req.body
+    const text = await url2text(url)
+
     res.json({
-        message: "add article"
+        message: text
     })
 }
 
