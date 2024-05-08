@@ -9,18 +9,9 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-//auth routes
-//TODO: create, login and renew user
-
 //articles routes
-//TODO: create, get, update and delete articles
-
-app.get('/',(req,res)=>{
-    res.json({
-        ok:true,
-        msg:"Hello World"
-    })
-})
+//TODO: create, get and delete articles
+app.use('/api/article',require('./routes/article'))
 
 //listen requests
 app.listen(process.env.PORT,()=>{
