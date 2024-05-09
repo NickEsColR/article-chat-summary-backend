@@ -4,17 +4,19 @@ const Article = require("../models/article");
 
 //TODO: getArticles
 /**
- * Function to handle the get articles request
+ * Function to handle the get articles name and summary
  * @param {request} req - The request object
  * @param {response} res - The response object
  */
 const getArticles = async (req, res) => {
+    const articles = await Article.find({},'name summary');
     res.json({
-        message: "get articles",
+        ok: true,
+        articles,
     });
 };
 
-//TODO: addArticle
+
 /**
  * Function to handle the add new article request
  * @param {request} req - The request object

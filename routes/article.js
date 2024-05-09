@@ -12,7 +12,6 @@ const router = Router();
 //TODO: get articles
 router.get('/',getArticles)
 
-//TODO: add article
 router.post('/',addArticle)
 
 //TODO: delete article
