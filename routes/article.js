@@ -17,7 +17,6 @@ router.post('/',addArticle)
 
 router.post('/chat/:id',getChatAnswer)
 
-//TODO: delete article
 router.delete('/:id',deleteArticle)
 
 module.exports = router;

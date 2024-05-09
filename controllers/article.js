@@ -100,16 +100,26 @@ const getChatAnswer = async (req, res) => {
         });
     }
 };
-//TODO: deleteArticle
+
 /**
  * Function to handle the delete article request
  * @param {request} req - The request object
  * @param {response} res  - The response object
  */
 const deleteArticle = async (req, res) => {
-    res.json({
-        message: "delete article",
-    });
+    const { id } = req.params;
+    try{
+        await Article.findByIdAndDelete(id);
+        res.json({
+            ok: true,
+        });
+    }catch(error){
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            message: "Please contact the administrator",
+        });
+    }
 };
 
 module.exports = {

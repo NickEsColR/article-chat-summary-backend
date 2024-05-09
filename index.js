@@ -15,7 +15,6 @@ app.use(express.json());
 
 //routes
 //articles routes
-//TODO: delete articles
 app.use('/api/article',require('./routes/article'))
 
 //listen requests
