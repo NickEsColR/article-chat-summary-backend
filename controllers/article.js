@@ -2,7 +2,6 @@ const { getAnswer } = require("../api/openai");
 const { url2text } = require("../helpers/url2text");
 const Article = require("../models/article");
 
-//TODO: getArticles
 /**
  * Function to handle the get articles name and summary
  * @param {request} req - The request object
@@ -23,7 +22,7 @@ const getArticles = async (req, res) => {
  */
 const getChat = async (req, res) => {
     const { id } = req.params;
-    const chat = await Article.find({_id:id},'chat');
+    const {chat} = await Article.findById(id,'chat');
     res.json({
         ok: true,
         chat,
@@ -73,6 +72,34 @@ const addArticle = async (req, res) => {
     }
 };
 
+/**
+ * Function to handle the get answer of a chat request
+ * @param {request} req - The request object
+ * @param {response} res - The response object
+ */
+const getChatAnswer = async (req, res) => {
+    const { question } = req.body;
+    const { id } = req.params;
+    const {initMessages, chat} = await Article.findById(id);
+    const messages = [...initMessages, ...chat];
+    try {
+        const answer = await getAnswer(question, messages);
+        chat.push({ role: "user", content: question });
+        chat.push({ role: "assistant", content: answer });
+        await Article.findByIdAndUpdate(id, { chat })
+
+        res.json({
+            ok: true,
+            answer,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            message: "Please contact the administrator",
+        });
+    }
+};
 //TODO: deleteArticle
 /**
  * Function to handle the delete article request
@@ -89,5 +116,6 @@ module.exports = {
     getArticles,
     getChat,
     addArticle,
+    getChatAnswer,
     deleteArticle,
 };

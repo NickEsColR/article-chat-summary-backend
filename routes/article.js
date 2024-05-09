@@ -5,16 +5,17 @@
 
 const {Router} = require('express');
 const {check} = require('express-validator');
-const { getArticles, addArticle, deleteArticle, getChat } = require('../controllers/article');
+const { getArticles, addArticle, deleteArticle, getChat, getChatAnswer } = require('../controllers/article');
 
 const router = Router();
 
-//TODO: get articles
 router.get('/',getArticles)
 
 router.get('/:id',getChat)
 
 router.post('/',addArticle)
+
+router.post('/chat/:id',getChatAnswer)
 
 //TODO: delete article
 router.delete('/:id',deleteArticle)
