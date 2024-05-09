@@ -57,11 +57,15 @@ const addArticle = async (req, res) => {
             initMessages: messages,
             chat: [],
         });
-        await article.save();
+        const {_id} = await article.save();
 
         res.json({
             ok: true,
-            article,
+            article:{
+                _id,
+                name,
+                summary
+            },
         });
     } catch (error) {
         console.log(error);
