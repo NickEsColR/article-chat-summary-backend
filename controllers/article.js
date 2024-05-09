@@ -16,6 +16,19 @@ const getArticles = async (req, res) => {
     });
 };
 
+/**
+ * Funciton to handle the get chat request
+ * @param {request} req - The request object
+ * @param {response} res - The response object
+ */
+const getChat = async (req, res) => {
+    const { id } = req.params;
+    const chat = await Article.find({_id:id},'chat');
+    res.json({
+        ok: true,
+        chat,
+    });
+};
 
 /**
  * Function to handle the add new article request
@@ -74,6 +87,7 @@ const deleteArticle = async (req, res) => {
 
 module.exports = {
     getArticles,
+    getChat,
     addArticle,
     deleteArticle,
 };
